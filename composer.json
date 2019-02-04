@@ -1,0 +1,12 @@
+{
+	"name": "laborci/mikauth-eternity",
+	"require": {
+		"mashape/unirest-php": "^3.0",
+		"php": ">=7.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"MikAuthEternity\\": "src/"
+		}
+	}
+}
