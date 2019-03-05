@@ -18,7 +18,7 @@ class MikAuthService implements MikAuthServiceInterface {
 		$this->config = $config;
 	}
 
-	public function requestToken():string {
+	public function requestToken() {
 		$response = Request::post(
 			$this->config::auth_token_url(),
 			['Accept' => 'application/json'],
@@ -37,7 +37,7 @@ class MikAuthService implements MikAuthServiceInterface {
 			Request\Body::form(['token' => $token])
 		);
 		$result = json_decode($response->raw_body, true);
-		$this->userContainer->setup($result['login'], $result['name'], $result['email'], $result['type']);
+		$this->userContainer->setup($result);
 		$this->userContainer->flush();
 		return $this->userContainer;
 	}
@@ -47,18 +47,12 @@ class MikAuthService implements MikAuthServiceInterface {
 		$this->userContainer->flush();
 	}
 
-	public function isWorker() { return $this->userContainer->isWorker(); }
 	public function isAuthenticated() { return $this->userContainer->isAuthenticated(); }
 
 	public function getUser($create = true) {
 		$user = $this->apiService->seekUser($this->userContainer->getLogin());
-		if ($user) {
-			return $user;
-		} else if ($create && $this->userContainer->getType() == 'worker') {
-			$id = $this->apiService->createUser($this->userContainer->getData());
-			return $this->apiService->getUser($id);
-		}
-		return null;
+		return $user?:null;
 	}
 
 }
+

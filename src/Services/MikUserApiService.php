@@ -29,6 +29,9 @@ class MikUserApiService implements MikUserApiServiceInterface {
 		return json_decode($response->raw_body, true);
 	}
 
+	/**
+	 * @deprecated 
+	 */
 	public function createUser($data){
 		$response = Request::post($this->api.'/user/create', ['Accept' => 'application/json'], Request\Body::form($data));
 		return json_decode($response->raw_body, true);
