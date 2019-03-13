@@ -41,6 +41,7 @@ class MikUserContainer extends Container implements MikUserContainerInterface {
 		$this->active = $data['active'];
 		$this->groups = $data['groups'];
 		$this->userid = $data['userid'];
+		$this->id = $data['userid'];
 	}
 
 }
