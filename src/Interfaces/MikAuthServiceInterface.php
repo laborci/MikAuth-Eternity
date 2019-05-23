@@ -2,7 +2,7 @@
 
 interface MikAuthServiceInterface{
 
-	public function requestToken();
+	public function requestToken($userOnly = true);
 	public function getResult($token): MikUserContainerInterface;
 	public function logout();
 	public function isAuthenticated();

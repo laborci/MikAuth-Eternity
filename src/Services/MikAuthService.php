@@ -18,13 +18,14 @@ class MikAuthService implements MikAuthServiceInterface {
 		$this->config = $config;
 	}
 
-	public function requestToken() {
+	public function requestToken($userOnly = true) {
 		$response = Request::post(
 			$this->config::auth_token_url(),
 			['Accept' => 'application/json'],
 			Request\Body::form([
 				'url'   => 'http://'.$this->config::auth_return_url(),
 				'title' => $this->config::auth_page_title(),
+				'userOnly'=> $userOnly
 			])
 		);
 		return json_decode($response->raw_body, true);
